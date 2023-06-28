@@ -8,6 +8,6 @@ jobs:
     name: Execute test
     steps:
       - name: install TeXLive
-        run: apt-get install -y texlive-full
+        run: sudo apt-get install -y texlive-full
       - name: run test
         run: echo x | tex test.tex
