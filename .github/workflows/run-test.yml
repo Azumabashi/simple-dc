@@ -1,0 +1,13 @@
+on:
+  push:
+    pull_request:
+
+jobs:
+  test_job:
+    runs-on: ubuntu-latest
+    name: Execute test
+    steps:
+      - name: install TeXLive
+        run: apt-get install -y texlive-full
+      - name: run test
+        run: echo x | tex test.tex
