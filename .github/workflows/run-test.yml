@@ -1,0 +1,15 @@
+on:
+  push:
+    pull_request:
+
+jobs:
+  test_job:
+    runs-on: ubuntu-latest
+    name: Execute test
+    steps:
+      - name: install TeXLive
+        run: sudo apt-get install -y texlive-base
+      - name: checkout repsitory
+        uses: actions/checkout@v2
+      - name: run test
+        run: echo x | tex test.tex
