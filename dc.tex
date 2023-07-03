@@ -2,33 +2,12 @@
 \dcresult = 0
 
 \catcode`@=11
-\def\dc@init#1 #2 #3#4;{
-  \ifx#3+
-    \dcresult = #1
-    \advance\dcresult by #2
-  \else
-  \ifx#3-
-    \dcresult = #1
-    \advance\dcresult by -#2
-  \else
-  \ifx#3*
-    \dcresult = #1
-    \multiply\dcresult by #2
-  \else
-  \ifx#3/
-    \dcresult = #1
-    \divide\dcresult by #2
-  \else
-    \errmessage{Unknown operator: #3}
-  \fi\fi\fi\fi
-  \ifx#4:
-    % nop
-  \else
-    \dc@next;#4;
-  \fi
+\def\dc@firsttoken#1 #2;{
+  \dcresult = #1
+  \dc@calculate; #2;
 }
 
-\def\dc@next; #1 #2#3;{
+\def\dc@calculate; #1 #2#3;{
   \ifx#2+
     \advance\dcresult by #1
   \else
@@ -46,10 +25,10 @@
   \ifx#3:
     % nop
   \else
-    \dc@next;#3;
+    \dc@calculate;#3;
   \fi
 }
 
-\def\dc#1{\dc@init#1:;}
+\def\dc#1{\dc@firsttoken#1:;}
 \def\dcresultprint{\immediate\write16{\the\dcresult}}
 \catcode`@=12
